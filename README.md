@@ -12,53 +12,6 @@ With the [plugin](https://www.figma.com/community/plugin/856651176156241740/Figm
 
 `./gradlew run --args="-config=application.conf"`
 
-
-The outputted code makes usage of some utility functions, so you'll need this pasted into a file in your project:
-(this next code snippet is CC0 / all of my rights waived)
-```kotlin
-
-import androidx.compose.Composable
-import androidx.ui.core.DensityAmbient
-import androidx.ui.core.LayoutDirection
-import androidx.ui.layout.Arrangement
-import androidx.ui.unit.Dp
-
-fun vSpacingArrangement(spacingPx: Int): Arrangement.Vertical = object : Arrangement.Vertical {
-
-    override fun arrange(totalSize: Int, size: List<Int>): List<Int> {
-        val positions = mutableListOf<Int>()
-        var current = 0
-        size.forEach {
-            positions.add(current)
-            current += it + spacingPx
-        }
-        return positions
-    }
-}
-fun hSpacingArrangement(spacingPx: Int): Arrangement.Horizontal = object : Arrangement.Horizontal {
-
-    override fun arrange(
-        totalSize: Int,
-        size: List<Int>,
-        layoutDirection: LayoutDirection
-    ): List<Int> {
-        val positions = mutableListOf<Int>()
-        var current = 0
-        size.forEach {
-            positions.add(current)
-            current += it + spacingPx
-        }
-        return positions
-    }
-}
-
-@Composable
-fun Dp.toIntInPx(): Int = with(DensityAmbient.current) {
-    return@toIntInPx this@toIntInPx.toIntPx()
-}
-
-```
-
 This requires a JDK installed, if you're doing Android dev it probably already is :)
 
 Now you can open the plugin window in Figma, select a node, and click "Genarate" to get the Jetpack Compose code to display it!
