@@ -81,7 +81,7 @@ Primarily, this is to cut out taking measurements, reduce design-implementation 
 | Rectangle     | Box                                   | Includes generic "style mods" (bg, shadow, )                                                      |                                                    |   |
 | Shadow fill   | drawShadow                            | Does not work well for non-rectangles or where shadow is applied to parent of many children       | Other shapes, find solution for shadows on parents |   |
 | Corner Radius | .clip(CornerRadiusShape)              |                                                                                                   |                                                    |   |
-| Gradient fill | drawBackground(HorizontalGradient(...)|  Only currently supports horizontal gradients                                                     |                                                    |   |
+| Gradient fill | background(HorizontalGradient(...)|  Only currently supports horizontal gradients                                                     |                                                    |   |
 
 # Development
 

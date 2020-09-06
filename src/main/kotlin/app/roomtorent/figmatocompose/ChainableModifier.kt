@@ -157,7 +157,7 @@ class ModifierChain(modifiersFromParent: (ModifierChain.() -> Unit)? = null) {
             var width: Float,
             var gradientTransform: ArrayList<ArrayList<Double>>? = null
     ) : ChainableModifier() {
-        override fun addToChain(acc: String) = acc + ".drawBackground".args(
+        override fun addToChain(acc: String) = acc + ".background".args(
                 "HorizontalGradient".args(
                         stops.joinToString { "${it.position}f to ${it.color?.toComposeColor()}" },
                         "startX = 0f",
@@ -222,8 +222,8 @@ class ModifierChain(modifiersFromParent: (ModifierChain.() -> Unit)? = null) {
         override fun addToChain(acc: String) = acc + ".gravity(Alignment.${alignment.name})"
     }
 
-    class DrawBackground(var color: RGBA, var opacityOverride: Float? = null) : ChainableModifier() {
-        override fun addToChain(acc: String) = acc + ".drawBackground(${color.toComposeColor(opacityOverride)})"
+    class Background(var color: RGBA, var opacityOverride: Float? = null) : ChainableModifier() {
+        override fun addToChain(acc: String) = acc + ".background(${color.toComposeColor(opacityOverride)})"
     }
 
     class WrapContentSize() : ChainableModifier() {
@@ -282,8 +282,8 @@ class ModifierChain(modifiersFromParent: (ModifierChain.() -> Unit)? = null) {
 
     fun referredSize(widthDp: Number, heightDp: Number) = PreferredSize(widthDp, heightDp)
 
-    fun drawBackground(color: RGBA, opacityOverride: Float? = null) =
-            ownModifiers.add(DrawBackground(color, opacityOverride))
+    fun background(color: RGBA, opacityOverride: Float? = null) =
+            ownModifiers.add(Background(color, opacityOverride))
 
     fun customModSeparator() = ownModifiers.add(CustomModSeparator())
     fun addPassedProperties() = ownModifiers.add(ClassProperties())
@@ -300,7 +300,7 @@ class ModifierChain(modifiersFromParent: (ModifierChain.() -> Unit)? = null) {
                                         this.gradientStops ?: arrayOf(), (node as LayoutMixin).width.toFloat()
                                 )
                             }
-                            fill is SolidPaint -> drawBackground(fill.color, fill.opacity.toFloat())
+                            fill is SolidPaint -> background(fill.color, fill.opacity.toFloat())
                         }
                     }
         }
